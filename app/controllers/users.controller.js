@@ -1,4 +1,5 @@
 const userDao = require('../dao/user.dao')
+const profileDao = require('../dao/profile.dao')
 
 var userController = {
   addUser: addUser,
@@ -6,6 +7,7 @@ var userController = {
   findUserById: findUserById,
   updateUser: updateUser,
   deleteUserById: deleteUserById,
+  setProfile: setProfile,
 }
 
 function addUser(req, res) {
@@ -93,6 +95,33 @@ function deleteUserById(req, res) {
         success: false,
         message: "✖️ An error occured when deleting user " + req.params.id
       })
+    })
+}
+
+function setProfile(req, res) {
+  let profile = profileDao.createFromJson(req.body.bio, req.body.avatar)
+  userDao.findById(req.params.id)
+    .then(function (user) {
+      if (!user) {
+        res.status(404).json({
+          success: false,
+          message: "❓ No user found with given ID"
+        })
+      }
+      user.setProfile(profile)
+        .then(associatedProfile => {
+          res.status(200).json({
+            success: true,
+            message: `✅ Profile set to user ${req.params.id}`
+          })
+        })
+        .catch((error) => {
+          console.log(error)
+          res.status(500).json({
+            success: false,
+            message: `✖️ An error occured when setting profile to user ${req.params.id}`
+          })
+        })
     })
 }
 

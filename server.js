@@ -18,7 +18,7 @@ app.get('/', (request, response) => {
     response.json({ info: 'NodeJS Express Portalz API' })
 })
 
-// Users routes
+// Routes
 app.use('/', require('./app/routes/routes'))
 
 app.listen(port, () => {

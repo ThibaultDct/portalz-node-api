@@ -6,6 +6,7 @@ var userDao = {
     findById: findById,
     deleteById: deleteById,
     update: update,
+    // setProfile: setProfile,
 }
 
 function findAll() {
@@ -35,5 +36,10 @@ function update(user, id) {
     };
     return User.update(updateUser, { where: { user_id: id } });
 }
+
+// function setProfile(profile, id) {
+//     var updateUser = User.findByPk(id)
+//     return updateUser.setProfile(profile);
+// }
 
 module.exports = userDao
