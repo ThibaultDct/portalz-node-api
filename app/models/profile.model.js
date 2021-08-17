@@ -15,6 +15,13 @@ module.exports = (sequelize, Sequelize) => {
             type: Sequelize.STRING,
             allowNull: true,
         },
+        // user: {
+        //     type: Sequelize.UUID,
+        //     references: {
+        //         model: 'users',
+        //         key: 'user_id'
+        //     }
+        // }
     });
 
     Profile.beforeCreate( profile => profile_id = uuid() );

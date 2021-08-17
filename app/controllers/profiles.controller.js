@@ -1,4 +1,5 @@
-const profileDao = require('../dao/profile.dao')
+const profileDao = require('../dao/profile.dao');
+const userDao = require('../dao/user.dao');
 
 var profileController = {
   addProfile: addProfile,
@@ -6,12 +7,24 @@ var profileController = {
   findProfileById: findProfileById,
   updateProfile: updateProfile,
   deleteProfileById: deleteProfileById,
+  getProfileByUserId: getProfileByUserId,
 }
 
 function addProfile(req, res) {
+  let user_id = req.params.id
   let profile = req.body;
-  profileDao.create(profile)
+  let created = profileDao.create(profile)
     .then((data) => {
+      let user = userDao.findById(user_id)
+        .then(function (user) {
+          if (!user) {
+            res.status(404).json({
+              success: false,
+              message: `❓ No user found with ID ${user_id}`
+            })
+          }
+          user.setProfile(created)
+        })
       res.send(data);
     })
     .catch((error) => {
@@ -93,6 +106,33 @@ function deleteProfileById(req, res) {
         success: false,
         message: "✖️ An error occured when deleting profile " + req.params.id
       })
+    })
+}
+
+function getProfileByUserId(req, res) {
+  let id = req.params.id
+  let user = userDao.findById(id)
+    .then(function (user) {
+      if (!user) {
+        res.status(404).json({
+          success: false,
+          message: `❓ No user found with ID ${id}`
+        })
+      }
+      let profile = user.getProfile()
+        .then(associatedProfile => {
+          res.status(200).json({
+            success: true,
+            user: user,
+            profile: associatedProfile
+          })
+        })
+        .catch((error) => {
+          res.status(500).json({
+            success: false,
+            message: `✖️ An error occured when getting profile from user ${id}`
+          })
+        })
     })
 }
 

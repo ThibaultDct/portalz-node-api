@@ -12,8 +12,6 @@ app.use(morgan(':method :url :status :res[content-length] - :response-time ms'))
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
 
-db.sequelize.sync()
-
 app.get('/', (request, response) => {
     response.json({ info: 'NodeJS Express Portalz API' })
 })

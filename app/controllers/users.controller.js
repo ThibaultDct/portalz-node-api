@@ -99,8 +99,8 @@ function deleteUserById(req, res) {
 }
 
 function setProfile(req, res) {
-  let profile = profileDao.createFromJson(req.body.bio, req.body.avatar)
-  userDao.findById(req.params.id)
+  //let profile = profileDao.createFromJson(req.body.bio, req.body.avatar)
+  let user = userDao.findById(req.params.id)
     .then(function (user) {
       if (!user) {
         res.status(404).json({
@@ -108,7 +108,10 @@ function setProfile(req, res) {
           message: "❓ No user found with given ID"
         })
       }
-      user.setProfile(profile)
+      user.createProfile({
+        bio: req.body.bio,
+        avatar: req.body.avatar
+      })
         .then(associatedProfile => {
           res.status(200).json({
             success: true,

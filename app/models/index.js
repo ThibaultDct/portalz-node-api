@@ -45,8 +45,10 @@ db.user.belongsToMany(db.role, {
  //db.user.hasOne(db.profile);
 //  db.user.belongsTo(db.profile, { through: "profile" });
 //  db.profile.hasOne(db.user)
-db.profile.belongsTo(db.user)
-db.user.hasOne(db.profile)
+//db.profile.belongsTo(db.user)
+//db.user.hasOne(db.profile)
+db.user.belongsTo(db.profile, { as: 'profile' })
+db.profile.hasOne(db.user)
 
  // MANY PROFILES TO MANY LANGUAGES
  db.profile.belongsToMany(db.language, {
@@ -59,6 +61,8 @@ db.user.hasOne(db.profile)
   foreignKey: "profile_id",
   otherKey: "language_id"
 });
+
+sequelize.sync({ force: true })
 
 db.ROLES = ["user", "admin", "moderator"];
 
