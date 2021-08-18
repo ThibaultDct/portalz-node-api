@@ -1,0 +1,72 @@
+kind: pipeline
+name: non-production
+
+- restore-cache:
+  image: drillster/drone-volume-cache
+  restore: true
+  mount:
+    - ./.yarn-cache
+    - ./node_modules
+  volumes:
+    - /tmp/cache:/cache
+
+- install:
+  image: node:14
+  commands:
+    - node -v
+    - npm -v
+    - yarn --version
+    - yarn config set cache-folder .yarn-cache
+    - yarn install --pure-lockfile
+
+- name: Docker 
+  image: plugins/docker
+  settings:
+    username:
+      from_secret: DOCKER_USERNAME
+    password:
+      from_secret: DOCKER_PASSWORD
+    repo: thibaultdct/portalz-api-node
+    tags: latest
+
+  # testing:
+  #   image: node:8.6.0
+  #   group: testing
+  #   commands:
+  #     - yarn run test
+
+  # lint:
+  #   image: node:8.6.0
+  #   group: testing
+  #   commands:
+  #     - yarn run lint
+
+  # publish:
+  #   image: plugins/docker
+  #   repo: appleboy/k8s-node-demo
+  #   dockerfile: Dockerfile
+  #   secrets:
+  #     - source: demo_username
+  #       target: docker_username
+  #     - source: demo_password
+  #       target: docker_password
+  #   tags: [ latest, '${DRONE_TAG}' ]
+  #   when:
+  #     event: tag
+
+  # deploy:
+  #   image: quay.io/honestbee/drone-kubernetes
+  #   namespace: demo
+  #   deployment: k8s-node-demo
+  #   repo: appleboy/k8s-node-demo
+  #   container: k8s-node-demo
+  #   tag: ${DRONE_TAG}
+  #   secrets:
+  #     - source: drone_ssh_key
+  #       target: ssh_key
+  #     - source: k8s_cert
+  #       target: plugin_kubernetes_cert
+  #     - source: k8s_token
+  #       target: plugin_kubernetes_token
+  #   when:
+  #     event: tag
