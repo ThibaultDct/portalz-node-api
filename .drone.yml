@@ -39,6 +39,7 @@ steps:
     CAPROVER_PASSWORD:
       from_secret: CAPROVER_PASSWORD
   commands:
+    - npm install -g caprover
     - caprover deploy --caproverUrl $CAPROVER_URL --caproverPassword $CAPROVER_PASSWORD --caproverApp portalz --imageName thibaultdct/portalz-api-node
 
   # testing:

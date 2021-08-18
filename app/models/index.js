@@ -62,7 +62,7 @@ db.profile.hasOne(db.user)
   otherKey: "language_id"
 });
 
-sequelize.sync({ force: true })
+sequelize.sync()
 
 db.ROLES = ["user", "admin", "moderator"];
 
