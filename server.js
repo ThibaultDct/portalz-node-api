@@ -8,7 +8,7 @@ const port = 8080
 var morgan = require('morgan')
 
 app.use(morgan(':method :url :status :res[content-length] - :response-time ms'))
-
+app.use(cors())
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
 
