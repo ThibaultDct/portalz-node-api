@@ -3,7 +3,7 @@ const bodyParser = require('body-parser')
 const cors = require('cors')
 const app = express()
 const db = require('./app/models')
-const port = 3000
+const port = 8080
 
 var morgan = require('morgan')
 
