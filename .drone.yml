@@ -11,7 +11,7 @@ steps:
 #   volumes:
 #     - /tmp/cache:/cache
 
-- install:
+- name: npm install
   image: node:14
   commands:
     - node -v
