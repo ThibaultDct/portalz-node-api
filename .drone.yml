@@ -21,7 +21,7 @@ steps:
     # - yarn config set cache-folder .yarn-cache
     # - yarn install --pure-lockfile
 
-- name: Docker 
+- name: docker 
   image: plugins/docker
   settings:
     username:
@@ -30,6 +30,14 @@ steps:
       from_secret: DOCKER_PASSWORD
     repo: thibaultdct/portalz-api-node
     tags: latest
+
+- name: caprover
+  image: caprover/cli-caprover
+  settings:
+    CAPROVER_PASSWORD:
+      from_secret: CAPROVER_PASSWORD
+  commands:
+    - caprover deploy -h https://captain.cloud2.thibaultdct.fr -p $CAPROVER_PASSWORD -a portalz --image thibaultdct/portalz-api-node
 
   # testing:
   #   image: node:8.6.0
