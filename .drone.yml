@@ -34,10 +34,12 @@ steps:
 - name: caprover
   image: caprover/cli-caprover
   settings:
+    CAPROVER_URL:
+      from_secret: CAPROVER_URL
     CAPROVER_PASSWORD:
       from_secret: CAPROVER_PASSWORD
   commands:
-    - caprover deploy -h https://captain.cloud2.thibaultdct.fr -p $CAPROVER_PASSWORD -a portalz --imageName thibaultdct/portalz-api-node
+    - caprover deploy --caproverUrl $CAPROVER_URL --caproverPassword $CAPROVER_PASSWORD --caproverApp portalz --imageName thibaultdct/portalz-api-node
 
   # testing:
   #   image: node:8.6.0
