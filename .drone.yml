@@ -1,6 +1,7 @@
 kind: pipeline
 name: non-production
 
+steps:
 - restore-cache:
   image: drillster/drone-volume-cache
   restore: true
