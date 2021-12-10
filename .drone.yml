@@ -44,5 +44,9 @@ steps:
       - DB_PASSWORD
       - AUTH_SECRET
     script:
+    - export DB_URL=$DB_URL
+    - export DB_USERNAME=$DB_USERNAME
+    - export DB_PASSWORD=$DB_PASSWORD
+    - export AUTH_SECRET=$AUTH_SECRET
     - echo "${DB_URL}"
     - sudo docker run --name=portalz -d -p 8081:8080 -e DB_URL=${DB_URL} -e DB_USERNAME=${DB_USERNAME} -e DB_PASSWORD=${DB_PASSWORD} -e AUTH_SECRET=${AUTH_SECRET} thibaultdct/portalz-api-node
