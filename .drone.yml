@@ -44,4 +44,3 @@ steps:
       script:
       - cd /home/ubuntu/
       - mkdir portalz
-      - cd portalz
