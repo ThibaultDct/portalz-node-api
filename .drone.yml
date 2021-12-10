@@ -52,4 +52,4 @@ steps:
     port: 22
     script:
     - echo "$DB_URL"
-    - sudo docker run --name=portalz -d -p 8081:8080 -e DB_URL=$DB_URL -e DB_USERNAME=$DB_USERNAME -e DB_PASSWORD=$DB_PASSWORD -e AUTH_SECRET=$AUTH_SECRET thibaultdct/portalz-api-node
+    - sudo docker run --name=portalz -d -p 8081:8080 -e DB_URL -e DB_USERNAME -e DB_PASSWORD -e AUTH_SECRET thibaultdct/portalz-api-node
