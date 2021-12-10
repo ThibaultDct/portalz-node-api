@@ -51,4 +51,4 @@ steps:
       from_secret: SSH_PASSWORD
     port: 22
     script:
-    - sudo docker run --name=portalz -d -p 8081:8080 thibaultdct/portalz-api-node -e DB_URL=$DB_URL -e DB_USERNAME=$DB_USERNAME -e DB_PASSWORD=$DB_PASSWORD -e AUTH_SECRET=$AUTH_SECRET
+    - sudo docker run --name=portalz -d -p 8081:8080 -e DB_URL=$DB_URL -e DB_USERNAME=$DB_USERNAME -e DB_PASSWORD=$DB_PASSWORD -e AUTH_SECRET=$AUTH_SECRET thibaultdct/portalz-api-node
