@@ -2,24 +2,12 @@ kind: pipeline
 name: non-production
 
 steps:
-# - restore-cache:
-#   image: drillster/drone-volume-cache
-#   restore: true
-#   mount:
-#     - ./.yarn-cache
-#     - ./node_modules
-#   volumes:
-#     - /tmp/cache:/cache
-
 - name: npm install
   image: node:14
   commands:
     - node -v
     - npm -v
     - npm install
-    # - yarn --version
-    # - yarn config set cache-folder .yarn-cache
-    # - yarn install --pure-lockfile
 
 - name: docker 
   image: plugins/docker
@@ -52,5 +40,5 @@ steps:
     port: 22
     envs: [AUTH_SECRET, DB_URL, DB_USERNAME, DB_PASSWORD]
     script:
-    - echo "$DB_URL"
-    - sudo docker run --name=portalz -d -p 8081:8080 -e DB_URL -e DB_USERNAME -e DB_PASSWORD -e AUTH_SECRET thibaultdct/portalz-api-node
+    - echo "${DB_URL}"
+    - sudo docker run --name=portalz -d -p 8081:8080 -e DB_URL=${DB_URL} -e DB_USERNAME=${DB_USERNAME} -e DB_PASSWORD=${DB_PASSWORD} -e AUTH_SECRET=${AUTH_SECRET} thibaultdct/portalz-api-node
