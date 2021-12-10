@@ -2,7 +2,7 @@ const express = require('express')
 const bodyParser = require('body-parser')
 const cors = require('cors')
 const app = express()
-const db = require('./app/models')
+//const db = require('./app/models')
 const port = 8080
 
 var morgan = require('morgan')
@@ -17,7 +17,7 @@ app.get('/', (request, response) => {
 })
 
 // Routes
-app.use('/', require('./app/routes/routes'))
+//app.use('/', require('./app/routes/routes'))
 
 app.listen(port, () => {
     console.log(process.env.DB_URL)
