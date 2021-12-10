@@ -20,5 +20,6 @@ app.get('/', (request, response) => {
 app.use('/', require('./app/routes/routes'))
 
 app.listen(port, () => {
+    console.log(process.env.DB_URL)
     console.log('API running on port ' + port + '.')
 })
