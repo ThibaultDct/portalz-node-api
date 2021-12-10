@@ -1,6 +1,16 @@
 kind: pipeline
 name: non-production
 
+environment:
+  DB_URL:
+    from_secret: DB_URL
+  DB_USERNAME:
+    from_secret: DB_USERNAME
+  DB_PASSWORD:
+    from_secret: DB_PASSWORD
+  AUTH_SECRET:
+    from_secret: AUTH_SECRET
+
 steps:
 - name: npm install
   image: node:14
@@ -21,15 +31,6 @@ steps:
 
 - name: deploy
   image: appleboy/drone-ssh
-  environment:
-    DB_URL:
-      from_secret: DB_URL
-    DB_USERNAME:
-      from_secret: DB_USERNAME
-    DB_PASSWORD:
-      from_secret: DB_PASSWORD
-    AUTH_SECRET:
-      from_secret: AUTH_SECRET
   settings:
     host:
       from_secret: SSH_HOST
