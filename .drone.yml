@@ -42,4 +42,4 @@ steps:
       from_secret: SSH_PASSWORD
     port: 22
     script:
-    - sudo docker run -d thibaultdct/portalz-api-node
+    - sudo docker run --name=portalz -d -p 8081:8080 thibaultdct/portalz-api-node
